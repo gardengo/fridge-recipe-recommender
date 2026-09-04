@@ -103,6 +103,16 @@ def get_recipe_name(recipe: dict) -> str:
     return str(recipe.get("name") or recipe.get("id") or "")
 
 
+def difficulty_stars(difficulty: int, max_level: int = UNKNOWN_DIFFICULTY) -> str:
+    """난이도를 별 문자열로 바꾼다.
+
+    >>> difficulty_stars(2)
+    '⭐⭐'
+    """
+    level = min(max(_as_int(difficulty, 1), 1), max_level)
+    return "⭐" * level
+
+
 def _load_json(path: Path) -> Any:
     """JSON 파일을 읽는다. 실패하면 원인을 설명하는 :class:`DataFileError` 로 바꿔 던진다."""
     if not path.is_file():

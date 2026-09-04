@@ -6,10 +6,16 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 import streamlit as st
 
+from src.recommender import recommend_recipes
 from src.utils import (
     DataFileError,
+    difficulty_stars,
+    get_cooking_time,
+    get_difficulty,
     load_ingredients,
     load_recipes,
     merge_ingredient_inputs,
@@ -20,7 +26,10 @@ PAGE_ICON = "🍳"
 SUBTITLE = "집에 있는 재료로 오늘 뭐 먹을지 찾아보세요."
 SEARCH_BUTTON_LABEL = f"{PAGE_ICON} 뭐 먹지?"
 
-#: 버튼을 한 번이라도 눌렀는지 기억해, 필터를 바꿔도 결과가 유지되도록 한다.
+#: 화면에 보여줄 추천 개수.
+TOP_N = 5
+
+#: 버튼을 한 번이라도 눌렀는지 기억해, 입력을 바꿔도 결과가 유지되도록 한다.
 SEARCHED_KEY = "searched"
 
 
@@ -52,6 +61,67 @@ def render_ingredient_form(options: list[str]) -> list[str]:
     return merge_ingredient_inputs(selected, extra_text)
 
 
+def render_missing_ingredients(item: dict[str, Any]) -> None:
+    """부족한 재료를 상황에 맞는 색으로 안내한다."""
+    if item["missing_required"]:
+        st.warning("부족한 필수 재료 · " + ", ".join(item["missing_required"]))
+    elif item["missing_optional"]:
+        st.info("필수 재료는 모두 있어요. 없어도 되는 재료 · " + ", ".join(item["missing_optional"]))
+    else:
+        st.success("필요한 재료를 모두 갖췄습니다.")
+
+
+def render_steps(recipe: dict[str, Any]) -> None:
+    """조리법을 접이식 영역에 보여준다."""
+    with st.expander("📖 레시피 보기"):
+        for number, step in enumerate(recipe.get("steps") or [], start=1):
+            st.write(f"{number}. {step}")
+        seasonings = recipe.get("seasonings")
+        if seasonings:
+            st.caption("양념 · " + ", ".join(seasonings))
+
+
+def render_recipe_card(item: dict[str, Any], rank: int, highlight: bool = False) -> None:
+    """추천 결과 한 건을 카드 형태로 그린다.
+
+    ``highlight`` 가 참이면 1위 레시피용으로 조금 더 크게 보여준다.
+    """
+    recipe = item["recipe"]
+    match_rate = item["total_match_rate"]
+
+    with st.container(border=True):
+        if highlight:
+            st.markdown(f"## {recipe['name']}")
+        else:
+            st.markdown(f"#### {rank}. {recipe['name']}")
+        st.caption(recipe.get("description", ""))
+
+        score_column, time_column, difficulty_column = st.columns(3)
+        score_column.metric("추천 점수", f"{item['score']:.0f}점")
+        time_column.metric("조리시간", f"{get_cooking_time(recipe)}분")
+        difficulty_column.metric("난이도", difficulty_stars(get_difficulty(recipe)))
+
+        st.progress(match_rate, text=f"재료 일치율 {match_rate:.0%}")
+        render_missing_ingredients(item)
+        render_steps(recipe)
+
+
+def render_results(user_ingredients: list[str], recipes: list[dict[str, Any]]) -> None:
+    """추천을 실행하고 결과를 화면에 그린다."""
+    results = recommend_recipes(user_ingredients, recipes, top_n=TOP_N)
+    if not results:
+        st.info("추천할 수 있는 레시피가 없습니다.")
+        return
+
+    st.subheader("🏆 오늘의 추천")
+    render_recipe_card(results[0], rank=1, highlight=True)
+
+    if len(results) > 1:
+        st.subheader("이런 것도 만들 수 있어요")
+        for rank, item in enumerate(results[1:], start=2):
+            render_recipe_card(item, rank=rank)
+
+
 def main() -> None:
     st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON, layout="wide")
     render_header()
@@ -75,7 +145,7 @@ def main() -> None:
         if not user_ingredients:
             st.warning("재료를 하나 이상 선택하거나 입력해 주세요.")
             return
-        st.info(f"선택한 재료 {len(user_ingredients)}개로 추천을 준비하고 있습니다.")
+        render_results(user_ingredients, recipes)
 
 
 main()
