@@ -16,6 +16,7 @@ from src.utils import (
     difficulty_stars,
     get_cooking_time,
     get_difficulty,
+    get_match_message,
     load_ingredients,
     load_recipes,
     merge_ingredient_inputs,
@@ -102,6 +103,7 @@ def render_recipe_card(item: dict[str, Any], rank: int, highlight: bool = False)
         difficulty_column.metric("난이도", difficulty_stars(get_difficulty(recipe)))
 
         st.progress(match_rate, text=f"재료 일치율 {match_rate:.0%}")
+        st.write(get_match_message(match_rate))
         render_missing_ingredients(item)
         render_steps(recipe)
 

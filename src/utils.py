@@ -103,6 +103,28 @@ def get_recipe_name(recipe: dict) -> str:
     return str(recipe.get("name") or recipe.get("id") or "")
 
 
+#: (최소 재료 일치율, 메시지) 쌍을 내림차순으로 정리한 표.
+#: 화면 코드에 같은 조건문이 반복되지 않도록 판단 기준을 여기 한 곳에만 둔다.
+MATCH_MESSAGES: tuple[tuple[float, str], ...] = (
+    (0.9, "🔥 완벽합니다. 배달앱을 닫아도 됩니다."),
+    (0.7, "😎 거의 다 있습니다. 오늘은 요리각입니다."),
+    (0.5, "🤔 조금 부족하지만 도전해볼 만합니다."),
+    (0.0, "🛒 장을 조금 봐야 할 것 같습니다."),
+)
+
+
+def get_match_message(match_rate: float) -> str:
+    """재료 일치율(0.0~1.0)에 어울리는 한 줄 메시지를 돌려준다.
+
+    >>> get_match_message(0.95)
+    '🔥 완벽합니다. 배달앱을 닫아도 됩니다.'
+    """
+    for threshold, message in MATCH_MESSAGES:
+        if match_rate >= threshold:
+            return message
+    return MATCH_MESSAGES[-1][1]
+
+
 def difficulty_stars(difficulty: int, max_level: int = UNKNOWN_DIFFICULTY) -> str:
     """난이도를 별 문자열로 바꾼다.
 
