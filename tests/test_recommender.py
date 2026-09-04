@@ -12,6 +12,13 @@ from src.recommender import (
     filter_recipes,
     recommend_recipes,
 )
+from src.utils import load_recipes
+
+
+@pytest.fixture(scope="module")
+def real_recipes() -> list[dict]:
+    """실제 서비스 데이터(data/recipes.json)."""
+    return load_recipes()
 
 
 def names_of(results: list[dict]) -> list[str]:
@@ -186,3 +193,50 @@ def test_사용자_재료가_없어도_예외없이_동작한다(sample_recipes)
 
 def test_레시피_목록이_비어_있으면_빈_결과를_돌려준다(user_ingredients) -> None:
     assert recommend_recipes(user_ingredients, []) == []
+
+
+# --------------------------------------------------------------------------
+# 실제 데이터(data/recipes.json)를 사용하는 통합 시나리오
+# --------------------------------------------------------------------------
+
+
+def test_시나리오A_김치_밥_계란이면_김치볶음밥_계열이_상위에_온다(real_recipes) -> None:
+    top_names = names_of(recommend_recipes(["김치", "밥", "계란"], real_recipes, top_n=3))
+
+    assert any("김치볶음밥" in name for name in top_names), top_names
+
+
+def test_시나리오B_계란_밥_간장이면_간장계란밥_계열이_상위에_온다(real_recipes) -> None:
+    top_names = names_of(recommend_recipes(["계란", "밥", "간장"], real_recipes, top_n=3))
+
+    assert any("계란밥" in name for name in top_names), top_names
+
+
+def test_시나리오C_두부_김치면_두부김치가_상위에_온다(real_recipes) -> None:
+    top_names = names_of(recommend_recipes(["두부", "김치"], real_recipes, top_n=3))
+
+    assert "두부김치" in top_names, top_names
+
+
+def test_시나리오D_재료가_없어도_오류가_나지_않는다(real_recipes) -> None:
+    results = recommend_recipes([], real_recipes, top_n=5)
+
+    assert len(results) == 5
+    assert all(0 <= item["score"] <= 100 for item in results)
+
+
+def test_시나리오E_조리시간_10분_제한이_지켜진다(real_recipes) -> None:
+    results = recommend_recipes(
+        ["김치", "밥", "계란"], real_recipes, top_n=None, max_cooking_time=10
+    )
+
+    assert results, "10분 이내 레시피가 하나도 없으면 필터 테스트가 무의미하다"
+    assert all(item["recipe"]["cooking_time"] <= 10 for item in results)
+
+
+def test_실제_데이터로도_모든_추천_기준이_동작한다(real_recipes) -> None:
+    for mode in (SORT_MODE_INGREDIENT_MATCH, SORT_MODE_COOKING_TIME, SORT_MODE_MISSING_INGREDIENTS):
+        results = recommend_recipes(["김치", "밥", "계란"], real_recipes, top_n=5, sort_mode=mode)
+
+        assert len(results) == 5, mode
+        assert all(0 <= item["score"] <= 100 for item in results), mode
