@@ -53,6 +53,30 @@ def normalize_ingredients(names: Iterable[str]) -> list[str]:
     return normalized
 
 
+def split_user_input(raw: str) -> list[str]:
+    """쉼표나 줄바꿈으로 구분된 자유 입력을 재료 목록으로 나눈다.
+
+    >>> split_user_input("미나리, 순대 , ")
+    ['미나리', '순대']
+    """
+    return [chunk.strip() for chunk in re.split(r"[,\n]+", raw or "") if chunk.strip()]
+
+
+def merge_ingredient_inputs(selected: Iterable[str], extra_text: str) -> list[str]:
+    """목록에서 고른 재료와 직접 입력한 재료를 중복 없이 합친다.
+
+    비교는 정규화된 이름으로 하되, 돌려주는 값은 화면에 보여줄 원래 표기를 유지한다.
+    """
+    merged: list[str] = []
+    seen: set[str] = set()
+    for name in [*selected, *split_user_input(extra_text)]:
+        key = normalize_ingredient(name)
+        if key and key not in seen:
+            seen.add(key)
+            merged.append(str(name).strip())
+    return merged
+
+
 def _as_int(value: object, default: int) -> int:
     """정수로 해석할 수 없는 값이면 ``default``를 돌려준다."""
     if isinstance(value, bool):
