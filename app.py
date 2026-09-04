@@ -36,6 +36,9 @@ SEARCH_BUTTON_LABEL = f"{PAGE_ICON} 뭐 먹지?"
 #: 화면에 보여줄 추천 개수.
 TOP_N = 5
 
+#: 겹치는 재료가 하나도 없는(0점) 레시피까지 보여주면 결과가 오히려 방해가 되므로 걸러낸다.
+MINIMUM_SCORE = 1.0
+
 #: 사이드바에 노출할 조리시간 선택지. ``None`` 은 "제한하지 않음"을 뜻한다.
 COOKING_TIME_OPTIONS: dict[str, int | None] = {
     "10분": 10,
@@ -54,6 +57,9 @@ SORT_MODE_OPTIONS: dict[str, str] = {
 
 #: 버튼을 한 번이라도 눌렀는지 기억해, 입력을 바꿔도 결과가 유지되도록 한다.
 SEARCHED_KEY = "searched"
+
+EMPTY_INPUT_MESSAGE = "재료를 하나 이상 선택하거나 입력해 주세요."
+EMPTY_RESULT_MESSAGE = "조건에 맞는 음식이 없습니다. 조리시간이나 난이도 조건을 조금 넓혀보세요."
 
 
 @st.cache_data(show_spinner=False)
@@ -81,7 +87,10 @@ def render_ingredient_form(options: list[str]) -> list[str]:
         placeholder="목록에 없는 재료는 쉼표로 구분해 입력하세요 (예: 미나리, 순대)",
         help="직접 입력한 재료도 추천에 함께 반영됩니다.",
     )
-    return merge_ingredient_inputs(selected, extra_text)
+
+    user_ingredients = merge_ingredient_inputs(selected, extra_text)
+    st.caption(f"🥕 현재 선택한 재료: {len(user_ingredients)}개")
+    return user_ingredients
 
 
 def render_sidebar_filters(categories: list[str]) -> dict[str, Any]:
@@ -130,10 +139,30 @@ def render_steps(recipe: dict[str, Any]) -> None:
             st.caption("양념 · " + ", ".join(seasonings))
 
 
+def render_recipe_metrics(item: dict[str, Any]) -> None:
+    """1위 카드에서 추천 점수·조리시간·난이도를 크게 보여준다."""
+    recipe = item["recipe"]
+    score_column, time_column, difficulty_column = st.columns(3)
+    score_column.metric("추천 점수", f"{item['score']:.0f}점")
+    time_column.metric("조리시간", f"{get_cooking_time(recipe)}분")
+    difficulty_column.metric("난이도", difficulty_stars(get_difficulty(recipe)))
+
+
+def format_recipe_summary(item: dict[str, Any]) -> str:
+    """2위 이하 카드에서 같은 정보를 한 줄로 압축한다."""
+    recipe = item["recipe"]
+    return (
+        f"추천 점수 **{item['score']:.0f}점**"
+        f"  ·  조리시간 {get_cooking_time(recipe)}분"
+        f"  ·  난이도 {difficulty_stars(get_difficulty(recipe))}"
+    )
+
+
 def render_recipe_card(item: dict[str, Any], rank: int, *, highlight: bool = False) -> None:
     """추천 결과 한 건을 카드 형태로 그린다.
 
-    ``highlight`` 가 참이면 1위 레시피용으로 조금 더 크게 보여준다.
+    1위 카드는 지표를 크게 펼쳐 보여주고, 나머지는 한 줄 요약으로 압축해
+    결과 목록이 숫자로 빽빽해지지 않도록 한다.
     """
     recipe = item["recipe"]
     match_rate = item["total_match_rate"]
@@ -141,14 +170,12 @@ def render_recipe_card(item: dict[str, Any], rank: int, *, highlight: bool = Fal
     with st.container(border=True):
         if highlight:
             st.markdown(f"## {recipe['name']}")
+            st.caption(recipe.get("description", ""))
+            render_recipe_metrics(item)
         else:
             st.markdown(f"#### {rank}. {recipe['name']}")
-        st.caption(recipe.get("description", ""))
-
-        score_column, time_column, difficulty_column = st.columns(3)
-        score_column.metric("추천 점수", f"{item['score']:.0f}점")
-        time_column.metric("조리시간", f"{get_cooking_time(recipe)}분")
-        difficulty_column.metric("난이도", difficulty_stars(get_difficulty(recipe)))
+            st.markdown(format_recipe_summary(item))
+            st.caption(recipe.get("description", ""))
 
         st.progress(match_rate, text=f"재료 일치율 {match_rate:.0%}")
         st.write(get_match_message(match_rate))
@@ -162,18 +189,22 @@ def render_results(
     options: dict[str, Any],
 ) -> None:
     """추천을 실행하고 결과를 화면에 그린다."""
-    results = recommend_recipes(user_ingredients, recipes, top_n=TOP_N, **options)
+    results = recommend_recipes(
+        user_ingredients, recipes, top_n=TOP_N, minimum_score=MINIMUM_SCORE, **options
+    )
     if not results:
-        st.info("추천할 수 있는 레시피가 없습니다.")
+        st.info(EMPTY_RESULT_MESSAGE)
         return
 
     st.subheader("🏆 오늘의 추천")
     render_recipe_card(results[0], rank=1, highlight=True)
 
     if len(results) > 1:
+        st.write("")
         st.subheader("이런 것도 만들 수 있어요")
         for rank, item in enumerate(results[1:], start=2):
             render_recipe_card(item, rank=rank)
+            st.write("")
 
 
 def main() -> None:
@@ -191,14 +222,16 @@ def main() -> None:
 
     with input_column:
         user_ingredients = render_ingredient_form(ingredient_options)
+        st.write("")
         if st.button(SEARCH_BUTTON_LABEL, type="primary", width="stretch"):
             st.session_state[SEARCHED_KEY] = True
 
     with result_column:
         if not st.session_state.get(SEARCHED_KEY):
+            st.info("왼쪽에서 재료를 고르고 **뭐 먹지?** 버튼을 눌러보세요.")
             return
         if not user_ingredients:
-            st.warning("재료를 하나 이상 선택하거나 입력해 주세요.")
+            st.warning(EMPTY_INPUT_MESSAGE)
             return
         render_results(user_ingredients, recipes, options)
 
