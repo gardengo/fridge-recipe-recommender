@@ -1,0 +1,1790 @@
+[
+  {
+    "id": "recipe_001",
+    "name": "김치볶음밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "참기름",
+      "식용유"
+    ],
+    "difficulty": 1,
+    "cooking_time": 15,
+    "description": "냉장고에 김치만 있으면 완성되는 국민 볶음밥.",
+    "steps": [
+      "김치를 잘게 썬다.",
+      "팬에 식용유를 두르고 김치를 볶는다.",
+      "밥을 넣고 간장을 둘러 함께 볶는다.",
+      "참기름을 두르고 계란프라이를 올린다."
+    ]
+  },
+  {
+    "id": "recipe_002",
+    "name": "계란볶음밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "소금",
+      "간장",
+      "식용유"
+    ],
+    "difficulty": 1,
+    "cooking_time": 10,
+    "description": "재료가 없을 때 가장 빠르게 만드는 기본 볶음밥.",
+    "steps": [
+      "계란을 풀어 스크램블로 익힌 뒤 덜어둔다.",
+      "대파와 채소를 잘게 썰어 볶는다.",
+      "밥을 넣고 소금과 간장으로 간한다.",
+      "익혀둔 계란을 넣고 섞는다."
+    ]
+  },
+  {
+    "id": "recipe_003",
+    "name": "참치김치볶음밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "참치",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "참기름",
+      "식용유"
+    ],
+    "difficulty": 1,
+    "cooking_time": 15,
+    "description": "참치캔 하나로 감칠맛이 확 살아나는 김치볶음밥.",
+    "steps": [
+      "참치캔의 기름을 살짝 따라낸다.",
+      "김치를 잘게 썰어 팬에 볶는다.",
+      "참치를 넣고 함께 볶는다.",
+      "밥을 넣고 간장으로 간한 뒤 참기름을 두른다."
+    ]
+  },
+  {
+    "id": "recipe_004",
+    "name": "새우볶음밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "새우",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "소금",
+      "굴소스",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 15,
+    "description": "냉동새우로 만드는 중식풍 볶음밥.",
+    "steps": [
+      "새우는 해동해 물기를 뺀다.",
+      "팬에 대파를 볶아 파기름을 낸다.",
+      "새우와 채소를 넣고 볶는다.",
+      "밥과 굴소스를 넣고 센 불에서 볶는다."
+    ]
+  },
+  {
+    "id": "recipe_005",
+    "name": "참치마요덮밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "참치",
+        "required": true
+      },
+      {
+        "name": "마요네즈",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "김",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "설탕"
+    ],
+    "difficulty": 1,
+    "cooking_time": 10,
+    "description": "참치캔과 마요네즈만 있으면 끝나는 자취생 덮밥.",
+    "steps": [
+      "참치의 기름을 따라내고 마요네즈와 섞는다.",
+      "간장과 설탕을 조금 넣어 간한다.",
+      "그릇에 밥을 담고 참치마요를 올린다.",
+      "계란프라이와 김가루를 올린다."
+    ]
+  },
+  {
+    "id": "recipe_006",
+    "name": "스팸마요덮밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "스팸",
+        "required": true
+      },
+      {
+        "name": "마요네즈",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "김",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "후추"
+    ],
+    "difficulty": 1,
+    "cooking_time": 12,
+    "description": "스팸을 구워 올린 짭조름한 덮밥.",
+    "steps": [
+      "스팸을 깍둑 썰어 팬에 노릇하게 굽는다.",
+      "간장을 살짝 둘러 조린다.",
+      "밥 위에 스팸을 올리고 마요네즈를 뿌린다.",
+      "계란프라이와 김가루를 올린다."
+    ]
+  },
+  {
+    "id": "recipe_007",
+    "name": "간장계란밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": true
+      },
+      {
+        "name": "김",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "참기름",
+      "식용유"
+    ],
+    "difficulty": 1,
+    "cooking_time": 5,
+    "description": "5분이면 완성되는 최소 재료 한 그릇.",
+    "steps": [
+      "계란을 반숙으로 프라이한다.",
+      "따뜻한 밥에 계란을 올린다.",
+      "간장과 참기름을 두른다.",
+      "김가루를 뿌리고 비벼 먹는다."
+    ]
+  },
+  {
+    "id": "recipe_008",
+    "name": "오므라이스",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": true
+      },
+      {
+        "name": "햄",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "치즈",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "케첩",
+      "소금",
+      "식용유"
+    ],
+    "difficulty": 3,
+    "cooking_time": 25,
+    "description": "케첩 볶음밥을 계란으로 감싼 추억의 메뉴.",
+    "steps": [
+      "양파와 채소를 잘게 썬다.",
+      "팬에 채소를 볶고 밥과 케첩을 넣어 볶는다.",
+      "계란을 곱게 풀어 얇게 부친다.",
+      "볶음밥을 계란으로 감싸고 케첩을 뿌린다."
+    ]
+  },
+  {
+    "id": "recipe_009",
+    "name": "카레라이스",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "카레가루",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": true
+      },
+      {
+        "name": "감자",
+        "required": true
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "돼지고기",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "식용유",
+      "소금"
+    ],
+    "difficulty": 2,
+    "cooking_time": 30,
+    "description": "한 번 만들면 며칠 먹는 든든한 카레.",
+    "steps": [
+      "감자, 양파, 당근을 큼직하게 썬다.",
+      "냄비에 기름을 두르고 재료를 볶는다.",
+      "물을 붓고 재료가 익을 때까지 끓인다.",
+      "카레가루를 풀어 넣고 걸쭉해질 때까지 저어준다.",
+      "밥 위에 부어 낸다."
+    ]
+  },
+  {
+    "id": "recipe_010",
+    "name": "비빔밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": true
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "애호박",
+        "required": false
+      },
+      {
+        "name": "시금치",
+        "required": false
+      },
+      {
+        "name": "콩나물",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고추장",
+      "참기름",
+      "소금"
+    ],
+    "difficulty": 2,
+    "cooking_time": 25,
+    "description": "남은 나물과 채소를 한 그릇에 모으는 냉장고 정리 메뉴.",
+    "steps": [
+      "채소를 채 썰어 각각 볶거나 데친다.",
+      "계란은 프라이로 준비한다.",
+      "그릇에 밥을 담고 채소를 색깔별로 올린다.",
+      "고추장과 참기름을 넣고 비빈다."
+    ]
+  },
+  {
+    "id": "recipe_011",
+    "name": "콩나물밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "콩나물",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "돼지고기",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "참기름",
+      "고춧가루"
+    ],
+    "difficulty": 2,
+    "cooking_time": 30,
+    "description": "양념장에 쓱쓱 비벼 먹는 한 솥 요리.",
+    "steps": [
+      "쌀을 씻어 평소보다 물을 적게 잡는다.",
+      "콩나물을 씻어 쌀 위에 올리고 밥을 짓는다.",
+      "간장, 대파, 고춧가루, 참기름으로 양념장을 만든다.",
+      "밥을 고루 섞은 뒤 양념장에 비벼 먹는다."
+    ]
+  },
+  {
+    "id": "recipe_012",
+    "name": "주먹밥",
+    "category": "밥",
+    "ingredients": [
+      {
+        "name": "밥",
+        "required": true
+      },
+      {
+        "name": "김",
+        "required": true
+      },
+      {
+        "name": "참치",
+        "required": false
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "참기름",
+      "소금",
+      "깨"
+    ],
+    "difficulty": 1,
+    "cooking_time": 10,
+    "description": "도시락이나 야식으로 좋은 한 입 크기 밥.",
+    "steps": [
+      "밥에 참기름, 소금, 깨를 넣고 섞는다.",
+      "속재료를 잘게 다져 섞는다.",
+      "손에 물을 묻혀 동그랗게 뭉친다.",
+      "김가루를 겉에 묻힌다."
+    ]
+  },
+  {
+    "id": "recipe_013",
+    "name": "라면",
+    "category": "면",
+    "ingredients": [
+      {
+        "name": "라면",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "김치",
+        "required": false
+      },
+      {
+        "name": "치즈",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "후추"
+    ],
+    "difficulty": 1,
+    "cooking_time": 8,
+    "description": "실패할 수 없는 최후의 보루.",
+    "steps": [
+      "물 550ml를 끓인다.",
+      "면과 스프를 넣고 4분간 끓인다.",
+      "대파와 계란을 넣고 30초 더 끓인다."
+    ]
+  },
+  {
+    "id": "recipe_014",
+    "name": "라볶이",
+    "category": "면",
+    "ingredients": [
+      {
+        "name": "떡",
+        "required": true
+      },
+      {
+        "name": "라면",
+        "required": true
+      },
+      {
+        "name": "어묵",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "양배추",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고추장",
+      "고춧가루",
+      "설탕",
+      "간장"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "떡볶이와 라면을 한 번에 즐기는 분식 조합.",
+    "steps": [
+      "떡은 미리 물에 불려둔다.",
+      "물에 고추장, 고춧가루, 설탕, 간장을 풀어 끓인다.",
+      "떡과 어묵을 넣고 끓인다.",
+      "라면 사리를 넣고 국물이 걸쭉해질 때까지 졸인다."
+    ]
+  },
+  {
+    "id": "recipe_015",
+    "name": "비빔국수",
+    "category": "면",
+    "ingredients": [
+      {
+        "name": "소면",
+        "required": true
+      },
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "오이",
+        "required": false
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고추장",
+      "식초",
+      "설탕",
+      "참기름"
+    ],
+    "difficulty": 2,
+    "cooking_time": 15,
+    "description": "새콤달콤한 양념에 비벼 먹는 여름 별미.",
+    "steps": [
+      "고추장, 식초, 설탕, 참기름으로 양념장을 만든다.",
+      "소면을 3분간 삶아 찬물에 헹군다.",
+      "김치와 오이를 채 썬다.",
+      "면에 양념장과 재료를 넣고 비빈다."
+    ]
+  },
+  {
+    "id": "recipe_016",
+    "name": "잔치국수",
+    "category": "면",
+    "ingredients": [
+      {
+        "name": "소면",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "애호박",
+        "required": false
+      },
+      {
+        "name": "김",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "소금",
+      "참기름"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "따뜻한 국물에 말아 먹는 편안한 국수.",
+    "steps": [
+      "멸치나 다시마로 육수를 낸다.",
+      "애호박은 채 썰어 볶고 계란은 지단으로 부친다.",
+      "소면을 삶아 찬물에 헹군다.",
+      "그릇에 면을 담고 육수를 부은 뒤 고명을 올린다."
+    ]
+  },
+  {
+    "id": "recipe_017",
+    "name": "볶음우동",
+    "category": "면",
+    "ingredients": [
+      {
+        "name": "우동면",
+        "required": true
+      },
+      {
+        "name": "양배추",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "어묵",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "굴소스",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 15,
+    "description": "굵은 면발에 간장 양념이 잘 배는 볶음면.",
+    "steps": [
+      "우동면을 끓는 물에 살짝 데쳐 물기를 뺀다.",
+      "양배추와 채소를 채 썬다.",
+      "팬에 채소를 센 불에 볶는다.",
+      "면과 간장, 굴소스를 넣고 빠르게 볶는다."
+    ]
+  },
+  {
+    "id": "recipe_018",
+    "name": "마늘파스타",
+    "category": "면",
+    "ingredients": [
+      {
+        "name": "스파게티면",
+        "required": true
+      },
+      {
+        "name": "마늘",
+        "required": true
+      },
+      {
+        "name": "베이컨",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "올리브유",
+      "소금",
+      "후추"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "마늘과 올리브유만으로 완성하는 기본 파스타.",
+    "steps": [
+      "스파게티면을 소금 넣은 물에 8분간 삶는다.",
+      "마늘을 편으로 썰어 올리브유에 천천히 익힌다.",
+      "면수를 조금 넣어 유화시킨다.",
+      "면을 넣고 소금, 후추로 간한다."
+    ]
+  },
+  {
+    "id": "recipe_019",
+    "name": "김치찌개",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "두부",
+        "required": true
+      },
+      {
+        "name": "돼지고기",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고춧가루",
+      "간장",
+      "설탕"
+    ],
+    "difficulty": 2,
+    "cooking_time": 25,
+    "description": "묵은지가 있다면 무조건 성공하는 찌개.",
+    "steps": [
+      "김치를 한입 크기로 썬다.",
+      "냄비에 김치와 돼지고기를 볶는다.",
+      "물을 붓고 고춧가루, 간장을 넣어 끓인다.",
+      "두부와 대파를 넣고 5분 더 끓인다."
+    ]
+  },
+  {
+    "id": "recipe_020",
+    "name": "된장찌개",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "두부",
+        "required": true
+      },
+      {
+        "name": "애호박",
+        "required": true
+      },
+      {
+        "name": "감자",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "버섯",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "된장",
+      "고춧가루",
+      "다진마늘"
+    ],
+    "difficulty": 2,
+    "cooking_time": 25,
+    "description": "밥상에 늘 올라가는 기본 찌개.",
+    "steps": [
+      "물에 된장을 풀어 끓인다.",
+      "감자와 양파를 넣고 익힌다.",
+      "애호박과 버섯을 넣는다.",
+      "두부와 대파를 넣고 한소끔 끓인다."
+    ]
+  },
+  {
+    "id": "recipe_021",
+    "name": "순두부찌개",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "순두부",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "바지락",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고춧가루",
+      "간장",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "부드러운 순두부에 얼큰한 국물이 어울리는 찌개.",
+    "steps": [
+      "냄비에 기름과 고춧가루를 넣어 고추기름을 낸다.",
+      "양파와 대파를 볶는다.",
+      "물을 붓고 간장으로 간한 뒤 끓인다.",
+      "순두부를 큼직하게 넣고 계란을 깨 넣는다."
+    ]
+  },
+  {
+    "id": "recipe_022",
+    "name": "부대찌개",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "스팸",
+        "required": true
+      },
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "두부",
+        "required": true
+      },
+      {
+        "name": "라면",
+        "required": false
+      },
+      {
+        "name": "소시지",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "치즈",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고춧가루",
+      "간장",
+      "설탕"
+    ],
+    "difficulty": 2,
+    "cooking_time": 30,
+    "description": "냉장고에 남은 가공육을 몰아 넣는 만능 찌개.",
+    "steps": [
+      "스팸과 소시지를 먹기 좋게 썬다.",
+      "냄비에 재료를 보기 좋게 돌려 담는다.",
+      "고춧가루, 간장, 설탕으로 만든 양념을 올린다.",
+      "물을 붓고 끓인 뒤 라면 사리를 넣는다."
+    ]
+  },
+  {
+    "id": "recipe_023",
+    "name": "참치김치찌개",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "참치",
+        "required": true
+      },
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "두부",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고춧가루",
+      "간장"
+    ],
+    "difficulty": 1,
+    "cooking_time": 20,
+    "description": "고기가 없을 때 참치캔으로 끓이는 김치찌개.",
+    "steps": [
+      "김치를 썰어 냄비에 볶는다.",
+      "물을 붓고 끓인다.",
+      "참치를 기름째 넣는다.",
+      "두부와 대파를 넣고 5분 더 끓인다."
+    ]
+  },
+  {
+    "id": "recipe_024",
+    "name": "계란국",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "계란",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "애호박",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "국간장",
+      "소금",
+      "참기름"
+    ],
+    "difficulty": 1,
+    "cooking_time": 10,
+    "description": "10분이면 끓는 가장 간단한 국.",
+    "steps": [
+      "물을 끓이고 국간장으로 간한다.",
+      "대파를 넣는다.",
+      "계란을 풀어 저으면서 천천히 붓는다.",
+      "참기름을 한 방울 떨어뜨린다."
+    ]
+  },
+  {
+    "id": "recipe_025",
+    "name": "콩나물국",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "콩나물",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "두부",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "소금",
+      "다진마늘",
+      "국간장"
+    ],
+    "difficulty": 1,
+    "cooking_time": 15,
+    "description": "속이 편안해지는 맑은 국물.",
+    "steps": [
+      "콩나물을 깨끗이 씻는다.",
+      "찬물에 콩나물을 넣고 뚜껑을 덮어 끓인다.",
+      "다진마늘과 소금으로 간한다.",
+      "대파를 넣고 마무리한다."
+    ]
+  },
+  {
+    "id": "recipe_026",
+    "name": "미역국",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "미역",
+        "required": true
+      },
+      {
+        "name": "소고기",
+        "required": false
+      },
+      {
+        "name": "계란",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "국간장",
+      "참기름",
+      "다진마늘"
+    ],
+    "difficulty": 2,
+    "cooking_time": 30,
+    "description": "생일이 아니어도 자주 끓여 먹는 국.",
+    "steps": [
+      "마른 미역을 물에 20분 불린다.",
+      "미역을 참기름에 볶는다.",
+      "물을 붓고 20분간 푹 끓인다.",
+      "국간장과 다진마늘로 간한다."
+    ]
+  },
+  {
+    "id": "recipe_027",
+    "name": "떡국",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "떡국떡",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "김",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "소고기",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "국간장",
+      "소금",
+      "후추"
+    ],
+    "difficulty": 2,
+    "cooking_time": 25,
+    "description": "떡만 있으면 끓일 수 있는 든든한 국.",
+    "steps": [
+      "떡국떡을 찬물에 30분 담가둔다.",
+      "육수를 끓이고 국간장으로 간한다.",
+      "떡을 넣고 떠오를 때까지 끓인다.",
+      "계란을 풀어 넣고 김가루와 대파를 올린다."
+    ]
+  },
+  {
+    "id": "recipe_028",
+    "name": "감자국",
+    "category": "국/찌개",
+    "ingredients": [
+      {
+        "name": "감자",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "애호박",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "국간장",
+      "소금"
+    ],
+    "difficulty": 1,
+    "cooking_time": 20,
+    "description": "재료가 없을 때 끓이는 담백한 국.",
+    "steps": [
+      "감자와 양파를 얇게 썬다.",
+      "냄비에 물과 감자를 넣고 끓인다.",
+      "양파를 넣고 감자가 익을 때까지 끓인다.",
+      "국간장과 소금으로 간하고 대파를 넣는다."
+    ]
+  },
+  {
+    "id": "recipe_029",
+    "name": "계란말이",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "계란",
+        "required": true
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "햄",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "소금",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 15,
+    "description": "도시락 반찬의 정석.",
+    "steps": [
+      "계란을 풀고 소금으로 간한다.",
+      "채소를 잘게 다져 계란물에 섞는다.",
+      "약불에서 계란물을 얇게 붓고 조금씩 말아준다.",
+      "한 김 식힌 뒤 썬다."
+    ]
+  },
+  {
+    "id": "recipe_030",
+    "name": "계란찜",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "계란",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "새우",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "소금",
+      "참기름"
+    ],
+    "difficulty": 1,
+    "cooking_time": 12,
+    "description": "폭신폭신하게 부풀어 오르는 계란찜.",
+    "steps": [
+      "계란과 물을 1:1로 섞는다.",
+      "체에 한 번 걸러 거품을 없앤다.",
+      "뚝배기에 붓고 약불에서 저어가며 익힌다.",
+      "뚜껑을 덮고 3분 뜸 들인 뒤 대파를 올린다."
+    ]
+  },
+  {
+    "id": "recipe_031",
+    "name": "두부조림",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "두부",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "고추",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "고춧가루",
+      "설탕",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "두부 한 모로 만드는 밥도둑 반찬.",
+    "steps": [
+      "두부를 도톰하게 썰어 노릇하게 굽는다.",
+      "간장, 고춧가루, 설탕으로 양념장을 만든다.",
+      "구운 두부에 양념장과 물을 붓는다.",
+      "국물이 자작해질 때까지 조린다."
+    ]
+  },
+  {
+    "id": "recipe_032",
+    "name": "두부김치",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "두부",
+        "required": true
+      },
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "돼지고기",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고춧가루",
+      "설탕",
+      "참기름",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "데친 두부와 볶은 김치의 완벽한 조합.",
+    "steps": [
+      "두부를 썰어 끓는 물에 3분 데친다.",
+      "김치를 썰어 팬에 볶는다.",
+      "설탕과 참기름으로 김치 간을 맞춘다.",
+      "접시에 두부를 두르고 가운데 김치를 담는다."
+    ]
+  },
+  {
+    "id": "recipe_033",
+    "name": "제육볶음",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "돼지고기",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "양배추",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고추장",
+      "고춧가루",
+      "설탕",
+      "간장"
+    ],
+    "difficulty": 3,
+    "cooking_time": 25,
+    "description": "매콤달콤한 국민 메인 반찬.",
+    "steps": [
+      "고추장, 고춧가루, 설탕, 간장으로 양념장을 만든다.",
+      "돼지고기에 양념을 버무려 20분 재운다.",
+      "센 불에 고기를 볶는다.",
+      "양파와 채소를 넣고 함께 볶는다."
+    ]
+  },
+  {
+    "id": "recipe_034",
+    "name": "어묵볶음",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "어묵",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "설탕",
+      "식용유",
+      "참기름"
+    ],
+    "difficulty": 1,
+    "cooking_time": 15,
+    "description": "밑반찬으로 만들어두면 든든한 메뉴.",
+    "steps": [
+      "어묵을 한입 크기로 썬다.",
+      "채소를 채 썬다.",
+      "팬에 채소를 볶다가 어묵을 넣는다.",
+      "간장과 설탕으로 간하고 참기름을 두른다."
+    ]
+  },
+  {
+    "id": "recipe_035",
+    "name": "감자조림",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "감자",
+        "required": true
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "설탕",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "달큰하게 조려 오래 두고 먹는 반찬.",
+    "steps": [
+      "감자를 깍둑 썰어 물에 담가 전분을 뺀다.",
+      "팬에 기름을 두르고 감자를 볶는다.",
+      "물, 간장, 설탕을 넣고 끓인다.",
+      "국물이 거의 없어질 때까지 조린다."
+    ]
+  },
+  {
+    "id": "recipe_036",
+    "name": "콩나물무침",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "콩나물",
+        "required": true
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "소금",
+      "참기름",
+      "다진마늘",
+      "깨"
+    ],
+    "difficulty": 1,
+    "cooking_time": 10,
+    "description": "10분이면 끝나는 기본 나물 반찬.",
+    "steps": [
+      "콩나물을 씻어 끓는 물에 5분 삶는다.",
+      "찬물에 헹궈 물기를 짠다.",
+      "소금, 다진마늘, 참기름을 넣고 무친다.",
+      "깨를 뿌려 마무리한다."
+    ]
+  },
+  {
+    "id": "recipe_037",
+    "name": "소시지야채볶음",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "소시지",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": true
+      },
+      {
+        "name": "당근",
+        "required": false
+      },
+      {
+        "name": "피망",
+        "required": false
+      },
+      {
+        "name": "양배추",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "케첩",
+      "설탕",
+      "식용유"
+    ],
+    "difficulty": 1,
+    "cooking_time": 15,
+    "description": "아이도 어른도 좋아하는 도시락 단골.",
+    "steps": [
+      "소시지에 칼집을 넣는다.",
+      "채소를 한입 크기로 썬다.",
+      "팬에 소시지를 먼저 볶는다.",
+      "채소와 케첩을 넣고 함께 볶는다."
+    ]
+  },
+  {
+    "id": "recipe_038",
+    "name": "김치볶음",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "돼지고기",
+        "required": false
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "설탕",
+      "참기름",
+      "식용유"
+    ],
+    "difficulty": 1,
+    "cooking_time": 12,
+    "description": "신 김치를 맛있게 살리는 방법.",
+    "steps": [
+      "김치를 한입 크기로 썬다.",
+      "팬에 기름을 두르고 김치를 볶는다.",
+      "설탕을 넣어 신맛을 잡는다.",
+      "참기름을 두르고 마무리한다."
+    ]
+  },
+  {
+    "id": "recipe_039",
+    "name": "가지볶음",
+    "category": "반찬",
+    "ingredients": [
+      {
+        "name": "가지",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "돼지고기",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "간장",
+      "굴소스",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 15,
+    "description": "가지를 싫어해도 먹게 되는 감칠맛 반찬.",
+    "steps": [
+      "가지를 길게 썰어 소금에 절인 뒤 물기를 짠다.",
+      "팬에 기름을 두르고 가지를 볶는다.",
+      "양파와 대파를 넣는다.",
+      "간장과 굴소스로 간한다."
+    ]
+  },
+  {
+    "id": "recipe_040",
+    "name": "김치전",
+    "category": "간식",
+    "ingredients": [
+      {
+        "name": "김치",
+        "required": true
+      },
+      {
+        "name": "부침가루",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "오징어",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "식용유",
+      "고춧가루"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "비 오는 날 생각나는 바삭한 전.",
+    "steps": [
+      "김치를 잘게 썰고 김치국물을 남겨둔다.",
+      "부침가루에 물과 김치국물을 넣어 반죽한다.",
+      "김치와 채소를 반죽에 섞는다.",
+      "팬에 기름을 넉넉히 두르고 얇게 부친다."
+    ]
+  },
+  {
+    "id": "recipe_041",
+    "name": "감자전",
+    "category": "간식",
+    "ingredients": [
+      {
+        "name": "감자",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "부침가루",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "소금",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 25,
+    "description": "감자 하나로 만드는 쫀득한 전.",
+    "steps": [
+      "감자를 강판에 갈거나 믹서에 간다.",
+      "체에 밭쳐 물을 따라내고 가라앉은 전분을 섞는다.",
+      "소금으로 간한다.",
+      "팬에 기름을 두르고 노릇하게 굽는다."
+    ]
+  },
+  {
+    "id": "recipe_042",
+    "name": "부추전",
+    "category": "간식",
+    "ingredients": [
+      {
+        "name": "부추",
+        "required": true
+      },
+      {
+        "name": "부침가루",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "오징어",
+        "required": false
+      },
+      {
+        "name": "당근",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "소금",
+      "식용유"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "부추 한 단이면 넉넉하게 부치는 전.",
+    "steps": [
+      "부추를 5cm 길이로 썬다.",
+      "부침가루에 물을 넣어 묽게 반죽한다.",
+      "부추와 채소를 반죽에 섞는다.",
+      "팬에 얇게 펴 앞뒤로 굽는다."
+    ]
+  },
+  {
+    "id": "recipe_043",
+    "name": "떡볶이",
+    "category": "간식",
+    "ingredients": [
+      {
+        "name": "떡",
+        "required": true
+      },
+      {
+        "name": "어묵",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": false
+      },
+      {
+        "name": "대파",
+        "required": false
+      },
+      {
+        "name": "양배추",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "고추장",
+      "고춧가루",
+      "설탕",
+      "간장"
+    ],
+    "difficulty": 2,
+    "cooking_time": 20,
+    "description": "언제 먹어도 옳은 국민 간식.",
+    "steps": [
+      "떡을 물에 10분 불린다.",
+      "물에 고추장, 고춧가루, 설탕, 간장을 풀어 끓인다.",
+      "떡과 어묵을 넣고 끓인다.",
+      "국물이 걸쭉해지면 대파를 넣는다."
+    ]
+  },
+  {
+    "id": "recipe_044",
+    "name": "계란토스트",
+    "category": "간식",
+    "ingredients": [
+      {
+        "name": "식빵",
+        "required": true
+      },
+      {
+        "name": "계란",
+        "required": true
+      },
+      {
+        "name": "양배추",
+        "required": false
+      },
+      {
+        "name": "햄",
+        "required": false
+      },
+      {
+        "name": "치즈",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "설탕",
+      "소금",
+      "버터"
+    ],
+    "difficulty": 1,
+    "cooking_time": 10,
+    "description": "아침이나 야식으로 좋은 길거리표 토스트.",
+    "steps": [
+      "식빵을 버터에 노릇하게 굽는다.",
+      "계란을 풀어 채 썬 양배추와 섞는다.",
+      "팬에 네모나게 부친다.",
+      "빵 사이에 넣고 설탕을 살짝 뿌린다."
+    ]
+  },
+  {
+    "id": "recipe_045",
+    "name": "옥수수치즈구이",
+    "category": "간식",
+    "ingredients": [
+      {
+        "name": "옥수수",
+        "required": true
+      },
+      {
+        "name": "치즈",
+        "required": true
+      },
+      {
+        "name": "양파",
+        "required": false
+      },
+      {
+        "name": "마요네즈",
+        "required": false
+      }
+    ],
+    "seasonings": [
+      "설탕",
+      "버터"
+    ],
+    "difficulty": 1,
+    "cooking_time": 15,
+    "description": "통조림 옥수수로 만드는 술안주 겸 간식.",
+    "steps": [
+      "옥수수 통조림의 물기를 뺀다.",
+      "마요네즈, 설탕, 다진 양파와 섞는다.",
+      "팬이나 오븐용 그릇에 담고 치즈를 덮는다.",
+      "치즈가 녹을 때까지 약불에서 익힌다."
+    ]
+  }
+]
