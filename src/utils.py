@@ -6,8 +6,11 @@ Streamlit에 의존하지 않으므로 CLI나 테스트에서도 그대로 사�
 
 from __future__ import annotations
 
+import json
 import re
 from collections.abc import Iterable
+from pathlib import Path
+from typing import Any
 
 #: 연속된 공백(전각 공백 포함)을 찾기 위한 패턴.
 _WHITESPACE_PATTERN = re.compile(r"[\s　]+")
@@ -15,6 +18,15 @@ _WHITESPACE_PATTERN = re.compile(r"[\s　]+")
 #: 정렬 시 값이 없는 레시피가 앞으로 오지 않도록 쓰는 기본값.
 UNKNOWN_COOKING_TIME = 10**6
 UNKNOWN_DIFFICULTY = 5
+
+#: 이 파일 위치를 기준으로 계산하므로 어느 디렉터리에서 실행해도 같은 곳을 가리킨다.
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+RECIPES_PATH = DATA_DIR / "recipes.json"
+INGREDIENTS_PATH = DATA_DIR / "ingredients.json"
+
+
+class DataFileError(RuntimeError):
+    """데이터 파일이 없거나 내용이 잘못되었을 때 발생한다."""
 
 
 def normalize_ingredient(name: str) -> str:
@@ -65,3 +77,57 @@ def get_difficulty(recipe: dict) -> int:
 def get_recipe_name(recipe: dict) -> str:
     """정렬·표시에 사용할 레시피 이름."""
     return str(recipe.get("name") or recipe.get("id") or "")
+
+
+def _load_json(path: Path) -> Any:
+    """JSON 파일을 읽는다. 실패하면 원인을 설명하는 :class:`DataFileError` 로 바꿔 던진다."""
+    if not path.is_file():
+        raise DataFileError(
+            f"데이터 파일을 찾을 수 없습니다: {path}\n"
+            f"프로젝트의 data 디렉터리에 '{path.name}' 파일이 있는지 확인하세요."
+        )
+    try:
+        text = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        raise DataFileError(
+            f"'{path.name}' 파일이 UTF-8로 저장되어 있지 않습니다. UTF-8로 다시 저장해 주세요."
+        ) from exc
+    except OSError as exc:
+        raise DataFileError(f"'{path.name}' 파일을 읽는 중 오류가 발생했습니다: {exc}") from exc
+
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise DataFileError(
+            f"'{path.name}' 파일의 JSON 형식이 올바르지 않습니다. "
+            f"{exc.lineno}번째 줄 {exc.colno}번째 칸 부근을 확인하세요. (원인: {exc.msg})"
+        ) from exc
+
+
+def load_recipes(path: Path | None = None) -> list[dict[str, Any]]:
+    """레시피 목록을 읽어온다.
+
+    Raises:
+        DataFileError: 파일이 없거나, JSON이 깨졌거나, 최상위 구조가 배열이 아닐 때.
+    """
+    target = path or RECIPES_PATH
+    data = _load_json(target)
+    if not isinstance(data, list):
+        raise DataFileError(f"'{target.name}' 의 최상위 구조는 레시피 객체의 배열이어야 합니다.")
+    for index, recipe in enumerate(data):
+        if not isinstance(recipe, dict):
+            raise DataFileError(f"'{target.name}' 의 {index}번째 항목이 객체(object)가 아닙니다.")
+    return data
+
+
+def load_ingredients(path: Path | None = None) -> list[str]:
+    """선택 가능한 재료 목록을 읽어온다.
+
+    Raises:
+        DataFileError: 파일이 없거나, JSON이 깨졌거나, 문자열 배열이 아닐 때.
+    """
+    target = path or INGREDIENTS_PATH
+    data = _load_json(target)
+    if not isinstance(data, list) or any(not isinstance(name, str) for name in data):
+        raise DataFileError(f"'{target.name}' 의 최상위 구조는 재료 이름 문자열의 배열이어야 합니다.")
+    return data
