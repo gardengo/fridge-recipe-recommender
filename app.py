@@ -57,7 +57,7 @@ SEARCHED_KEY = "searched"
 
 
 @st.cache_data(show_spinner=False)
-def load_app_data() -> tuple[list[dict], list[str]]:
+def load_app_data() -> tuple[list[dict[str, Any]], list[str]]:
     """레시피와 재료 목록을 읽어 캐시한다."""
     return load_recipes(), load_ingredients()
 
@@ -112,7 +112,10 @@ def render_missing_ingredients(item: dict[str, Any]) -> None:
     if item["missing_required"]:
         st.warning("부족한 필수 재료 · " + ", ".join(item["missing_required"]))
     elif item["missing_optional"]:
-        st.info("필수 재료는 모두 있어요. 없어도 되는 재료 · " + ", ".join(item["missing_optional"]))
+        st.info(
+            "필수 재료는 모두 있어요. 없어도 되는 재료 · "
+            + ", ".join(item["missing_optional"])
+        )
     else:
         st.success("필요한 재료를 모두 갖췄습니다.")
 
@@ -127,7 +130,7 @@ def render_steps(recipe: dict[str, Any]) -> None:
             st.caption("양념 · " + ", ".join(seasonings))
 
 
-def render_recipe_card(item: dict[str, Any], rank: int, highlight: bool = False) -> None:
+def render_recipe_card(item: dict[str, Any], rank: int, *, highlight: bool = False) -> None:
     """추천 결과 한 건을 카드 형태로 그린다.
 
     ``highlight`` 가 참이면 1위 레시피용으로 조금 더 크게 보여준다.

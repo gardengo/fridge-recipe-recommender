@@ -46,9 +46,7 @@ def filter_recipes(
             return False
         if max_difficulty is not None and get_difficulty(recipe) > max_difficulty:
             return False
-        if category not in (None, CATEGORY_ALL) and recipe.get("category") != category:
-            return False
-        return True
+        return category in (None, CATEGORY_ALL) or recipe.get("category") == category
 
     return [recipe for recipe in recipes or [] if matches(recipe)]
 
@@ -124,6 +122,7 @@ def resolve_sort_mode(sort_mode: str) -> Callable[[Recommendation], tuple[Any, .
 def _sort_key(
     item: Recommendation,
     key_builder: Callable[[Recommendation], tuple[Any, ...]],
+    *,
     prefer_complete: bool,
 ) -> tuple[Any, ...]:
     """추천 기준별 정렬 키를 만든다.
@@ -177,7 +176,7 @@ def recommend_recipes(
     )
     evaluated = [build_recommendation(user_ingredients, recipe) for recipe in candidates]
     ranked = [item for item in evaluated if item["score"] >= minimum_score]
-    ranked.sort(key=lambda item: _sort_key(item, key_builder, prefer_complete))
+    ranked.sort(key=lambda item: _sort_key(item, key_builder, prefer_complete=prefer_complete))
 
     if top_n is not None:
         ranked = ranked[: max(top_n, 0)]

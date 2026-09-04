@@ -88,17 +88,17 @@ def _as_int(value: object, default: int) -> int:
     return default
 
 
-def get_cooking_time(recipe: dict) -> int:
+def get_cooking_time(recipe: dict[str, Any]) -> int:
     """레시피의 조리시간(분). 값이 없거나 형식이 잘못되면 매우 큰 값으로 본다."""
     return _as_int(recipe.get("cooking_time"), UNKNOWN_COOKING_TIME)
 
 
-def get_difficulty(recipe: dict) -> int:
+def get_difficulty(recipe: dict[str, Any]) -> int:
     """레시피의 난이도(1~5). 값이 없거나 형식이 잘못되면 가장 어려운 값으로 본다."""
     return _as_int(recipe.get("difficulty"), UNKNOWN_DIFFICULTY)
 
 
-def get_recipe_name(recipe: dict) -> str:
+def get_recipe_name(recipe: dict[str, Any]) -> str:
     """정렬·표시에 사용할 레시피 이름."""
     return str(recipe.get("name") or recipe.get("id") or "")
 
@@ -185,5 +185,7 @@ def load_ingredients(path: Path | None = None) -> list[str]:
     target = path or INGREDIENTS_PATH
     data = _load_json(target)
     if not isinstance(data, list) or any(not isinstance(name, str) for name in data):
-        raise DataFileError(f"'{target.name}' 의 최상위 구조는 재료 이름 문자열의 배열이어야 합니다.")
+        raise DataFileError(
+            f"'{target.name}' 의 최상위 구조는 재료 이름 문자열의 배열이어야 합니다."
+        )
     return data
