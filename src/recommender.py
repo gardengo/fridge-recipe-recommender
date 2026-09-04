@@ -14,6 +14,43 @@ from src.utils import get_cooking_time, get_difficulty, get_recipe_name
 #: 추천 결과 한 건의 타입 별칭. ``recipe`` 와 평가 지표가 함께 들어 있다.
 Recommendation = dict[str, Any]
 
+#: 카테고리 필터에서 "제한하지 않음"을 뜻하는 값.
+CATEGORY_ALL = "전체"
+
+#: 화면에 노출할 카테고리 순서. 여기에 없는 카테고리는 뒤에 이름순으로 붙는다.
+CATEGORY_ORDER: tuple[str, ...] = ("밥", "면", "국/찌개", "반찬", "간식")
+
+
+def available_categories(recipes: list[dict[str, Any]]) -> list[str]:
+    """데이터에 실제로 존재하는 카테고리를 정해진 순서로 돌려준다(맨 앞은 "전체")."""
+    available = {str(recipe.get("category") or "") for recipe in recipes or []}
+    ordered = [name for name in CATEGORY_ORDER if name in available]
+    extras = sorted(available - set(CATEGORY_ORDER) - {""})
+    return [CATEGORY_ALL, *ordered, *extras]
+
+
+def filter_recipes(
+    recipes: list[dict[str, Any]],
+    max_cooking_time: int | None = None,
+    max_difficulty: int | None = None,
+    category: str | None = None,
+) -> list[dict[str, Any]]:
+    """조리시간·난이도·카테고리 조건에 맞는 레시피만 남긴다.
+
+    각 조건은 ``None`` (카테고리는 ``None`` 또는 ``"전체"``)이면 제한하지 않는다.
+    """
+
+    def matches(recipe: dict[str, Any]) -> bool:
+        if max_cooking_time is not None and get_cooking_time(recipe) > max_cooking_time:
+            return False
+        if max_difficulty is not None and get_difficulty(recipe) > max_difficulty:
+            return False
+        if category not in (None, CATEGORY_ALL) and recipe.get("category") != category:
+            return False
+        return True
+
+    return [recipe for recipe in recipes or [] if matches(recipe)]
+
 
 def build_recommendation(user_ingredients: list[str], recipe: dict[str, Any]) -> Recommendation:
     """레시피 하나를 평가해 추천 결과 한 건으로 만든다."""
@@ -47,6 +84,9 @@ def recommend_recipes(
     top_n: int | None = 5,
     minimum_score: float = 0.0,
     prefer_complete: bool = True,
+    max_cooking_time: int | None = None,
+    max_difficulty: int | None = None,
+    category: str | None = None,
 ) -> list[Recommendation]:
     """보유 재료로 만들 수 있는 레시피를 점수순으로 추천한다.
 
@@ -56,13 +96,22 @@ def recommend_recipes(
         top_n: 최대 결과 개수. ``None`` 이면 제한하지 않는다.
         minimum_score: 이 점수 미만인 레시피는 결과에서 제외한다.
         prefer_complete: 참이면 필수 재료를 모두 갖춘 레시피를 항상 앞에 배치한다.
+        max_cooking_time: 이 시간(분)을 넘는 레시피를 제외한다.
+        max_difficulty: 이 난이도를 넘는 레시피를 제외한다.
+        category: 이 카테고리만 남긴다. ``None`` 또는 ``"전체"`` 면 제한하지 않는다.
 
     Returns:
         점수가 높은 순으로 정렬된 추천 결과 목록. 각 항목은 ``recipe``, ``score``,
         ``required_match_rate``, ``total_match_rate``, ``missing_required``,
         ``missing_optional`` 등을 담고 있다.
     """
-    evaluated = [build_recommendation(user_ingredients, recipe) for recipe in recipes or []]
+    candidates = filter_recipes(
+        recipes,
+        max_cooking_time=max_cooking_time,
+        max_difficulty=max_difficulty,
+        category=category,
+    )
+    evaluated = [build_recommendation(user_ingredients, recipe) for recipe in candidates]
     ranked = [item for item in evaluated if item["score"] >= minimum_score]
     ranked.sort(key=lambda item: _sort_key(item, prefer_complete))
 

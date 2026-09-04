@@ -10,7 +10,7 @@ from typing import Any
 
 import streamlit as st
 
-from src.recommender import recommend_recipes
+from src.recommender import available_categories, recommend_recipes
 from src.utils import (
     DataFileError,
     difficulty_stars,
@@ -29,6 +29,15 @@ SEARCH_BUTTON_LABEL = f"{PAGE_ICON} 뭐 먹지?"
 
 #: 화면에 보여줄 추천 개수.
 TOP_N = 5
+
+#: 사이드바에 노출할 조리시간 선택지. ``None`` 은 "제한하지 않음"을 뜻한다.
+COOKING_TIME_OPTIONS: dict[str, int | None] = {
+    "10분": 10,
+    "20분": 20,
+    "30분": 30,
+    "60분": 60,
+    "제한 없음": None,
+}
 
 #: 버튼을 한 번이라도 눌렀는지 기억해, 입력을 바꿔도 결과가 유지되도록 한다.
 SEARCHED_KEY = "searched"
@@ -60,6 +69,25 @@ def render_ingredient_form(options: list[str]) -> list[str]:
         help="직접 입력한 재료도 추천에 함께 반영됩니다.",
     )
     return merge_ingredient_inputs(selected, extra_text)
+
+
+def render_sidebar_filters(categories: list[str]) -> dict[str, Any]:
+    """사이드바 필터를 그리고, 추천 엔진에 그대로 넘길 수 있는 형태로 돌려준다."""
+    with st.sidebar:
+        st.header("🔎 필터")
+        time_label = st.selectbox(
+            "최대 조리시간",
+            options=list(COOKING_TIME_OPTIONS),
+            index=len(COOKING_TIME_OPTIONS) - 1,
+        )
+        max_difficulty = st.slider("최대 난이도", min_value=1, max_value=5, value=5)
+        category = st.selectbox("카테고리", options=categories)
+
+    return {
+        "max_cooking_time": COOKING_TIME_OPTIONS[time_label],
+        "max_difficulty": max_difficulty,
+        "category": category,
+    }
 
 
 def render_missing_ingredients(item: dict[str, Any]) -> None:
@@ -108,9 +136,13 @@ def render_recipe_card(item: dict[str, Any], rank: int, highlight: bool = False)
         render_steps(recipe)
 
 
-def render_results(user_ingredients: list[str], recipes: list[dict[str, Any]]) -> None:
+def render_results(
+    user_ingredients: list[str],
+    recipes: list[dict[str, Any]],
+    options: dict[str, Any],
+) -> None:
     """추천을 실행하고 결과를 화면에 그린다."""
-    results = recommend_recipes(user_ingredients, recipes, top_n=TOP_N)
+    results = recommend_recipes(user_ingredients, recipes, top_n=TOP_N, **options)
     if not results:
         st.info("추천할 수 있는 레시피가 없습니다.")
         return
@@ -134,6 +166,7 @@ def main() -> None:
         st.error(str(exc))
         st.stop()
 
+    options = render_sidebar_filters(available_categories(recipes))
     input_column, result_column = st.columns([1, 1.6], gap="large")
 
     with input_column:
@@ -147,7 +180,7 @@ def main() -> None:
         if not user_ingredients:
             st.warning("재료를 하나 이상 선택하거나 입력해 주세요.")
             return
-        render_results(user_ingredients, recipes)
+        render_results(user_ingredients, recipes, options)
 
 
 main()
