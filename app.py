@@ -10,7 +10,13 @@ from typing import Any
 
 import streamlit as st
 
-from src.recommender import available_categories, recommend_recipes
+from src.recommender import (
+    SORT_MODE_COOKING_TIME,
+    SORT_MODE_INGREDIENT_MATCH,
+    SORT_MODE_MISSING_INGREDIENTS,
+    available_categories,
+    recommend_recipes,
+)
 from src.utils import (
     DataFileError,
     difficulty_stars,
@@ -37,6 +43,13 @@ COOKING_TIME_OPTIONS: dict[str, int | None] = {
     "30분": 30,
     "60분": 60,
     "제한 없음": None,
+}
+
+#: 사이드바 라디오 버튼 라벨 → 추천 엔진의 sort_mode 값.
+SORT_MODE_OPTIONS: dict[str, str] = {
+    "재료 일치율 우선": SORT_MODE_INGREDIENT_MATCH,
+    "조리시간 우선": SORT_MODE_COOKING_TIME,
+    "부족한 재료 최소화": SORT_MODE_MISSING_INGREDIENTS,
 }
 
 #: 버튼을 한 번이라도 눌렀는지 기억해, 입력을 바꿔도 결과가 유지되도록 한다.
@@ -83,10 +96,14 @@ def render_sidebar_filters(categories: list[str]) -> dict[str, Any]:
         max_difficulty = st.slider("최대 난이도", min_value=1, max_value=5, value=5)
         category = st.selectbox("카테고리", options=categories)
 
+        st.divider()
+        sort_label = st.radio("추천 기준", options=list(SORT_MODE_OPTIONS))
+
     return {
         "max_cooking_time": COOKING_TIME_OPTIONS[time_label],
         "max_difficulty": max_difficulty,
         "category": category,
+        "sort_mode": SORT_MODE_OPTIONS[sort_label],
     }
 
 

@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from typing import Any
 
 from src.scoring import evaluate_recipe
@@ -57,25 +58,81 @@ def build_recommendation(user_ingredients: list[str], recipe: dict[str, Any]) ->
     return {"recipe": recipe, **evaluate_recipe(user_ingredients, recipe)}
 
 
-def _sort_key(item: Recommendation, prefer_complete: bool) -> tuple[Any, ...]:
-    """점수 내림차순 정렬 키.
+#: 지원하는 추천 기준.
+SORT_MODE_INGREDIENT_MATCH = "ingredient_match"
+SORT_MODE_COOKING_TIME = "cooking_time"
+SORT_MODE_MISSING_INGREDIENTS = "missing_ingredients"
 
-    점수가 같으면 (1) 부족한 필수 재료가 적은 순 → (2) 조리시간이 짧은 순 →
-    (3) 난이도가 낮은 순으로 정렬한다. 마지막 이름 비교는 결과 순서를 항상
-    동일하게 유지하기 위한 것이다.
 
-    ``prefer_complete`` 가 참이면 필수 재료를 모두 갖춘 레시피를 앞으로 보낸다.
-    """
+def _by_ingredient_match(item: Recommendation) -> tuple[Any, ...]:
+    """재료 일치율(점수) 우선. 동점이면 부족한 필수 재료 → 조리시간 → 난이도 순."""
     recipe = item["recipe"]
-    complete_first = (0 if not item["missing_required"] else 1) if prefer_complete else 0
     return (
-        complete_first,
         -item["score"],
         len(item["missing_required"]),
         get_cooking_time(recipe),
         get_difficulty(recipe),
-        get_recipe_name(recipe),
     )
+
+
+def _by_cooking_time(item: Recommendation) -> tuple[Any, ...]:
+    """조리시간이 짧은 것 우선. 같은 시간이면 점수가 높은 순."""
+    recipe = item["recipe"]
+    return (
+        get_cooking_time(recipe),
+        -item["score"],
+        len(item["missing_required"]),
+        get_difficulty(recipe),
+    )
+
+
+def _by_missing_ingredients(item: Recommendation) -> tuple[Any, ...]:
+    """부족한 재료가 적은 것 우선. 같으면 점수 → 조리시간 → 난이도 순."""
+    recipe = item["recipe"]
+    return (
+        len(item["missing_required"]),
+        len(item["missing_optional"]),
+        -item["score"],
+        get_cooking_time(recipe),
+        get_difficulty(recipe),
+    )
+
+
+#: 추천 기준 이름 → 정렬 키 함수.
+SORT_MODES = {
+    SORT_MODE_INGREDIENT_MATCH: _by_ingredient_match,
+    SORT_MODE_COOKING_TIME: _by_cooking_time,
+    SORT_MODE_MISSING_INGREDIENTS: _by_missing_ingredients,
+}
+
+
+def resolve_sort_mode(sort_mode: str) -> Callable[[Recommendation], tuple[Any, ...]]:
+    """추천 기준 이름에 해당하는 정렬 키 함수를 찾는다.
+
+    Raises:
+        ValueError: 지원하지 않는 이름일 때.
+    """
+    try:
+        return SORT_MODES[sort_mode]
+    except (KeyError, TypeError):
+        supported = ", ".join(SORT_MODES)
+        raise ValueError(
+            f"지원하지 않는 sort_mode 입니다: {sort_mode!r} (사용 가능한 값: {supported})"
+        ) from None
+
+
+def _sort_key(
+    item: Recommendation,
+    key_builder: Callable[[Recommendation], tuple[Any, ...]],
+    prefer_complete: bool,
+) -> tuple[Any, ...]:
+    """추천 기준별 정렬 키를 만든다.
+
+    ``prefer_complete`` 가 참이면 필수 재료를 모두 갖춘 레시피를 어떤 기준에서든 앞으로 보낸다.
+    마지막 이름 비교는 결과 순서를 항상 동일하게 유지하기 위한 것이다.
+    """
+    complete_first = (0 if not item["missing_required"] else 1) if prefer_complete else 0
+    return (complete_first, *key_builder(item), get_recipe_name(item["recipe"]))
 
 
 def recommend_recipes(
@@ -84,6 +141,7 @@ def recommend_recipes(
     top_n: int | None = 5,
     minimum_score: float = 0.0,
     prefer_complete: bool = True,
+    sort_mode: str = SORT_MODE_INGREDIENT_MATCH,
     max_cooking_time: int | None = None,
     max_difficulty: int | None = None,
     category: str | None = None,
@@ -96,15 +154,21 @@ def recommend_recipes(
         top_n: 최대 결과 개수. ``None`` 이면 제한하지 않는다.
         minimum_score: 이 점수 미만인 레시피는 결과에서 제외한다.
         prefer_complete: 참이면 필수 재료를 모두 갖춘 레시피를 항상 앞에 배치한다.
+        sort_mode: 추천 기준. ``"ingredient_match"``, ``"cooking_time"``,
+            ``"missing_ingredients"`` 중 하나.
         max_cooking_time: 이 시간(분)을 넘는 레시피를 제외한다.
         max_difficulty: 이 난이도를 넘는 레시피를 제외한다.
         category: 이 카테고리만 남긴다. ``None`` 또는 ``"전체"`` 면 제한하지 않는다.
 
     Returns:
-        점수가 높은 순으로 정렬된 추천 결과 목록. 각 항목은 ``recipe``, ``score``,
+        선택한 기준으로 정렬된 추천 결과 목록. 각 항목은 ``recipe``, ``score``,
         ``required_match_rate``, ``total_match_rate``, ``missing_required``,
         ``missing_optional`` 등을 담고 있다.
+
+    Raises:
+        ValueError: ``sort_mode`` 가 지원하지 않는 값일 때.
     """
+    key_builder = resolve_sort_mode(sort_mode)
     candidates = filter_recipes(
         recipes,
         max_cooking_time=max_cooking_time,
@@ -113,7 +177,7 @@ def recommend_recipes(
     )
     evaluated = [build_recommendation(user_ingredients, recipe) for recipe in candidates]
     ranked = [item for item in evaluated if item["score"] >= minimum_score]
-    ranked.sort(key=lambda item: _sort_key(item, prefer_complete))
+    ranked.sort(key=lambda item: _sort_key(item, key_builder, prefer_complete))
 
     if top_n is not None:
         ranked = ranked[: max(top_n, 0)]
