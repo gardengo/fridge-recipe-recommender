@@ -3,30 +3,35 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
 build/
 dist/
 *.egg-info/
-.eggs/
 
-# Virtual environments
+# 가상환경
 .venv/
 venv/
 env/
 ENV/
 
-# Test / coverage
+# 테스트 / 린트 캐시
 .pytest_cache/
+.ruff_cache/
+.mypy_cache/
 .coverage
 htmlcov/
-.mypy_cache/
-.ruff_cache/
 
-# Streamlit
+# 환경변수 / 비밀값
+.env
+.env.*
+!.env.example
 .streamlit/secrets.toml
 
-# IDE / OS
+# Streamlit 테마 설정(.streamlit/config.toml)은 배포에 필요하므로 추적한다.
+
+# IDE
 .idea/
 .vscode/
+
+# OS
 .DS_Store
 Thumbs.db
