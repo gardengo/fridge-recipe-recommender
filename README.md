@@ -182,6 +182,55 @@ for item in results:
 
 ---
 
+## 배포 (Streamlit Community Cloud)
+
+무료로 웹에 올릴 수 있습니다. 별도의 서버나 결제 수단이 필요하지 않습니다.
+
+### 1. GitHub repository 생성
+
+GitHub에서 새 public repository를 만듭니다.
+
+### 2. 코드 push
+
+```bash
+git init
+git add .
+git commit -m "Initial commit: fridge recipe recommender"
+git branch -M main
+git remote add origin <GITHUB_REPOSITORY_URL>
+git push -u origin main
+```
+
+### 3. Streamlit Community Cloud 접속
+
+<https://share.streamlit.io> 에 GitHub 계정으로 로그인합니다.
+
+### 4. Create app
+
+| 항목 | 값 |
+| --- | --- |
+| Repository | 방금 push한 저장소 |
+| Branch | `main` |
+| Main file path | `app.py` |
+
+### 5. Deploy
+
+**Deploy** 를 누르면 `requirements.txt` 를 읽어 자동으로 의존성을 설치하고 앱을 띄웁니다.
+1~2분 뒤 아래 형태의 주소가 발급됩니다.
+
+```
+https://<YOUR_APP_NAME>.streamlit.app
+```
+
+이후 `main` 브랜치에 push할 때마다 배포된 앱이 자동으로 갱신됩니다.
+
+> **참고**
+> - 이 앱은 환경변수나 API 키가 없어도 동작하므로 Secrets 설정이 필요 없습니다.
+> - 데이터 파일(`data/*.json`)은 저장소에 포함되어 있어 별도 업로드가 필요 없습니다.
+> - Python 버전은 Advanced settings에서 3.11 이상을 선택하는 것을 권장합니다.
+
+---
+
 ## 라이선스
 
 MIT
